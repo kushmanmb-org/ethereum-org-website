@@ -73,7 +73,7 @@ export const languagePathRootRegExp = /^.+\/content\/translations\/[a-z-]*\//
 // Metrics
 export const DAYS_TO_FETCH = 1
 export const BEACONCHA_IN_URL = "https://beaconcha.in/"
-export const ETHERSCAN_API_URL = "https://api.etherscan.io"
+export const ETHERSCAN_API_URL = "https://api.etherscan.io/v2/api"
 export const DUNE_API_URL = "https://api.dune.com"
 
 // Wallets

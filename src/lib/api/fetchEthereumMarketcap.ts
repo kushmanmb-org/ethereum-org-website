@@ -1,13 +1,15 @@
-import { MetricReturnData } from "../types"
+import type { MetricReturnData } from "../types"
+
+import { fetchMetric } from "./fetchMetricUtils"
+
+type CoinGeckoMarketCapResponse = { ethereum: { usd_market_cap: number } }
 
 export const fetchEthereumMarketcap = async (): Promise<MetricReturnData> => {
-  const data: { ethereum: { usd_market_cap: number } } = await fetch(
-    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=true"
-  ).then((res) => res.json())
-  const {
-    ethereum: { usd_market_cap },
-  } = data
-  if (!usd_market_cap)
-    throw new Error("Unable to fetch ETH price from CoinGecko")
-  return { value: usd_market_cap, timestamp: Date.now() }
+  return fetchMetric<CoinGeckoMarketCapResponse>({
+    url: "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=true",
+    metricName: "ETH market cap",
+    extractValue: (data) => data.ethereum.usd_market_cap,
+    validateValue: (value) => Boolean(value),
+    errorMessage: "Unable to fetch ETH market cap from CoinGecko",
+  })
 }

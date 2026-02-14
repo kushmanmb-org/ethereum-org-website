@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic"
+import createLazyComponent from "@/lib/utils/createLazyComponent"
 
 import Loading from "./loading"
 
-export default dynamic(() => import("."), { ssr: false, loading: Loading })
+export default createLazyComponent(() => import("."), Loading)

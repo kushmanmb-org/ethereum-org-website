@@ -1,5 +1,7 @@
 import { MetricReturnData } from "../types"
 
+import { fetchMetric } from "./fetchMetricUtils"
+
 export type LlamaStablecoinchainsResponseItem = {
   gecko_id: string | null
   totalCirculatingUSD: Record<string, number>
@@ -8,31 +10,19 @@ export type LlamaStablecoinchainsResponseItem = {
 }
 
 export async function fetchEthereumStablecoinsMcap(): Promise<MetricReturnData> {
-  const url = "https://stablecoins.llama.fi/stablecoinchains"
+  return fetchMetric<LlamaStablecoinchainsResponseItem[]>({
+    url: "https://stablecoins.llama.fi/stablecoinchains",
+    metricName: "Ethereum stablecoins market cap",
+    extractValue: (data) => {
+      const ethereumData = data.find(({ gecko_id }) => gecko_id === "ethereum")
+      if (!ethereumData) throw new Error("Ethereum stablecoin data not found")
 
-  try {
-    const response = await fetch(url)
-    if (!response.ok) {
-      console.log(response.status, response.statusText)
-      throw new Error("Failed to fetch llama.fi stablecoin mcap data")
-    }
-    const data: LlamaStablecoinchainsResponseItem[] = await response.json()
-
-    const ethereumData = data.find(({ gecko_id }) => gecko_id === "ethereum")
-    if (!ethereumData) throw new Error("Ethereum stablecoin data not found")
-
-    const value = Object.values(ethereumData.totalCirculatingUSD).reduce(
-      (acc, value) => acc + value,
-      0
-    )
-
-    return { value }
-  } catch (error) {
-    // Will not currently break build; passes back error key
-    console.error(error)
-    return {
-      error:
-        "Something went wrong with requesting the Ethereum stablecoins data.",
-    }
-  }
+      return Object.values(ethereumData.totalCirculatingUSD).reduce(
+        (acc, value) => acc + value,
+        0
+      )
+    },
+    errorMessage:
+      "Something went wrong with requesting the Ethereum stablecoins data.",
+  })
 }
