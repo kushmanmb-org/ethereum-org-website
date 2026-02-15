@@ -112,7 +112,7 @@ For infrastructure-as-code approaches, you can use tools like Terraform with the
 
 ## Workflow Integration
 
-These rulesets enforce the [Gitflow workflow](../docs/deploy-process.md) used by ethereum.org:
+These rulesets enforce the [Gitflow workflow](../../docs/deploy-process.md) used by ethereum.org:
 
 ```
 master  ─── tag ──────────────────── tag ───
@@ -193,7 +193,7 @@ In emergency situations, repository administrators can bypass rules. However:
 
 - [GitHub Repository Rulesets Documentation](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
 - [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-- [ethereum.org Deploy Process](../docs/deploy-process.md)
+- [ethereum.org Deploy Process](../../docs/deploy-process.md)
 - [CODEOWNERS Documentation](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
 
 ## Support
