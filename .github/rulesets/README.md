@@ -2,6 +2,14 @@
 
 This directory contains repository rulesets that define branch protection and governance policies for the ethereum.org repository. These rulesets enforce the Gitflow workflow and ensure code quality standards.
 
+## Files
+
+- **`master-branch.json`** - Ruleset for the production branch
+- **`staging-branch.json`** - Ruleset for the release candidate branch
+- **`dev-branch.json`** - Ruleset for the development branch
+- **`apply-rulesets.sh`** - Automated script to apply all rulesets
+- **`README.md`** - This file (comprehensive documentation)
+
 ## Overview
 
 Repository rulesets provide a way to manage branch protection rules, required status checks, and other repository policies in a structured, version-controlled manner.
@@ -61,7 +69,20 @@ Ruleset for the development branch.
 
 These ruleset files serve as documentation and templates. To apply them to your repository:
 
-### Option 1: GitHub Web UI
+### Option 1: Automated Script (Recommended)
+
+Use the provided script to apply all rulesets at once:
+
+```bash
+# From repository root
+./.github/rulesets/apply-rulesets.sh
+```
+
+**Requirements:**
+- GitHub CLI (`gh`) installed and authenticated
+- Admin permissions on the repository
+
+### Option 2: GitHub Web UI
 
 1. Go to your repository settings
 2. Navigate to **Rules** → **Rulesets**
@@ -71,7 +92,7 @@ These ruleset files serve as documentation and templates. To apply them to your 
 6. Set enforcement to **Active**
 7. Save the ruleset
 
-### Option 2: GitHub API
+### Option 3: GitHub API (Manual)
 
 You can import these rulesets using the GitHub REST API:
 
@@ -85,7 +106,7 @@ gh api \
   --input master-branch.json
 ```
 
-### Option 3: GitHub CLI with Terraform/IaC
+### Option 4: GitHub CLI with Terraform/IaC
 
 For infrastructure-as-code approaches, you can use tools like Terraform with the GitHub provider to manage rulesets programmatically.
 
