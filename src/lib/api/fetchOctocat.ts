@@ -14,6 +14,7 @@ export const fetchOctocat = async (): Promise<string> => {
   try {
     const response = await fetch("https://api.github.com/octocat", {
       headers: {
+        // Using Bearer token format as specified in the API requirements
         Authorization: `Bearer ${gitHubToken}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
