@@ -7,6 +7,7 @@ Ethereum.org is the primary educational hub for Ethereum, offering beginner-frie
 ## Learn
 
 ### Basics
+- [What is the Ethereum Network](https://ethereum.org/what-is-the-ethereum-network/): Understanding Ethereum network
 - [What is Ethereum?](https://ethereum.org/what-is-ethereum/): Introduction to Ethereum and its core concepts
 - [What is Ether (ETH)?](https://ethereum.org/eth/): Understanding Ethereum's native cryptocurrency
 - [Ethereum Wallets](https://ethereum.org/wallets/): Guide to storing and managing ETH and tokens
@@ -19,6 +20,7 @@ Ethereum.org is the primary educational hub for Ethereum, offering beginner-frie
 - [Zero Knowledge Proofs](https://ethereum.org/content/zero-knowledge-proofs/index.md): Privacy and scaling technology
 - [Run a Node](https://ethereum.org/run-a-node/): Operating Ethereum infrastructure
 - [Ethereum Security](https://ethereum.org/content/security/index.md): Protecting yourself in the ecosystem
+- [Ethereum Privacy](https://ethereum.org/content/privacy/index.md): Privacy in Ethereum
 
 ### Educational Resources
 - [Quizzes](https://ethereum.org/quizzes/): Test your Ethereum knowledge
@@ -27,6 +29,7 @@ Ethereum.org is the primary educational hub for Ethereum, offering beginner-frie
 ## Use
 
 ### Getting Started
+- [Application Explorer](https://ethereum.org/apps/): Explore Ethereum applications
 - [Start with Crypto](https://ethereum.org/start/): Complete beginner's guide
 - [Find a Wallet](https://ethereum.org/wallets/find-wallet/): Wallet selection tool
 - [Get ETH](https://ethereum.org/get-eth/): How to acquire Ethereum
@@ -48,6 +51,7 @@ Ethereum.org is the primary educational hub for Ethereum, offering beginner-frie
 - [DAOs](https://ethereum.org/content/dao/index.md): Decentralized autonomous organizations
 
 ### Emerging Applications
+- [Onchain Gaming](https://ethereum.org/content/gaming/index.md): Gaming on blockchain
 - [Decentralized Identity](https://ethereum.org/content/decentralized-identity/index.md): Self-sovereign identity
 - [Decentralized Social Networks](https://ethereum.org/content/social-networks/index.md): Web3 social platforms
 - [Decentralized Science (DeSci)](https://ethereum.org/content/desci/index.md): Research and collaboration
@@ -188,6 +192,7 @@ Ethereum.org is the primary educational hub for Ethereum, offering beginner-frie
 
 ### Enterprise
 - [Enterprise Ethereum](https://ethereum.org/enterprise/): Business adoption and use cases
+- [Founders](https://ethereum.org/content/founders/index.md): Founder resources
 
 ## Participate
 
@@ -219,6 +224,7 @@ Ethereum.org is the primary educational hub for Ethereum, offering beginner-frie
 ## Research
 
 ### Foundational Documents
+- [Ethereum vs Bitcoin](https://ethereum.org/ethereum-vs-bitcoin/): Comparing Ethereum and Bitcoin
 - [Ethereum Whitepaper](https://ethereum.org/content/whitepaper/index.md): Original vision document by Vitalik Buterin
 - [Ethereum Improvement Proposals (EIPs)](https://ethereum.org/content/eips/index.md): Protocol upgrade specifications
 - [Ethereum History](https://ethereum.org/content/ethereum-forks/index.md): Timeline and key milestones
