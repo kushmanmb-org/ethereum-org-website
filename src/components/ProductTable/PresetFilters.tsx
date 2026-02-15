@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react"
+import React, { useCallback, useMemo } from "react"
 import { Check } from "lucide-react"
 
 import type { FilterOption, TPresetFilters } from "@/lib/types"
@@ -197,4 +197,4 @@ const PresetFilters = ({
   )
 }
 
-export default PresetFilters
+export default React.memo(PresetFilters)

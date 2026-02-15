@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Clipboard, ClipboardCheck } from "lucide-react"
 import { useLocale } from "next-intl"
 
@@ -62,17 +62,30 @@ const CodeExamples = ({ title, codeExamples }: CodeExamplesProps) => {
   const [fetchedCodes, setFetchedCodes] = useState<{ [key: number]: string }>(
     {}
   )
+  // Track which codes are currently being fetched to prevent duplicate fetches
+  const fetchingRef = useRef<Set<number>>(new Set())
 
   const eventCategory = `Homepage - ${locale}`
 
   const getCode = useCallback(
     (idx: number) => {
       const example = codeExamples[idx]
-      if (!fetchedCodes[idx]) {
-        fetch(example.codeUrl)
-          .then((res) => res.text())
-          .then((text) => setFetchedCodes((prev) => ({ ...prev, [idx]: text })))
+      // Check if already fetched or currently fetching
+      if (fetchedCodes[idx] || fetchingRef.current.has(idx)) {
+        return
       }
+
+      fetchingRef.current.add(idx)
+      fetch(example.codeUrl)
+        .then((res) => res.text())
+        .then((text) => {
+          setFetchedCodes((prev) => ({ ...prev, [idx]: text }))
+          fetchingRef.current.delete(idx)
+        })
+        .catch((error) => {
+          console.error(`Failed to fetch code for ${example.title}:`, error)
+          fetchingRef.current.delete(idx)
+        })
     },
     [codeExamples, fetchedCodes]
   )
