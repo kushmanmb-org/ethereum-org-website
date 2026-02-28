@@ -256,8 +256,11 @@ Before running the project locally, you'll need to configure environment variabl
 
 - **Reporting Vulnerabilities**: If you discover a security issue, please report it to `security@ethereum.org` using the PGP key outlined in https://ethereum.org/.well-known/security.txt
 - **Review SECURITY.md**: See [SECURITY.md](SECURITY.md) for our security policy
+- **Check KEY_PROTECTION_POLICY.md**: Review [docs/KEY_PROTECTION_POLICY.md](docs/KEY_PROTECTION_POLICY.md) for comprehensive key management guidelines
+- **Blockchain Security Audit**: See [docs/BLOCKCHAIN_SECURITY_AUDIT.md](docs/BLOCKCHAIN_SECURITY_AUDIT.md) for our latest security assessment
 - **Keep Dependencies Updated**: Regular dependency updates help maintain security
 - **API Key Rotation**: Rotate API keys periodically and immediately if compromised
+- **Use Secret Detection**: Run `npm run check-secrets` before committing sensitive changes - pre-commit hooks automatically block secrets
 
 ### API Keys Used
 

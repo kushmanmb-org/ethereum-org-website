@@ -51,7 +51,7 @@ export const getHolderEvents = async (
   torchHolderMap: Record<string, TorchHolderMetadata>,
   transferEvents: TransferEvent[]
 ) => {
-  return transferEvents.map<TorchHolderEvent>((event) => {
+  const holders = transferEvents.map<TorchHolderEvent>((event) => {
     const holderMetadata = torchHolderMap[event.to.toLowerCase()]
 
     // If the torch was transferred to the zero address (burned), create a special holder entry
@@ -82,6 +82,19 @@ export const getHolderEvents = async (
       event,
     }
   })
+
+  // Resolve ENS names for all holders
+  const holdersWithEns = await Promise.all(
+    holders.map(async (holder) => {
+      const ensName = await resolveAddressToEnsName(holder.address)
+      return {
+        ...holder,
+        ens: ensName ?? undefined,
+      }
+    })
+  )
+
+  return holdersWithEns
 }
 
 export const getBlockieImage = (address: Address) => {
@@ -163,6 +176,23 @@ export async function resolveEnsName(
     return address
   } catch (error) {
     console.warn(`Failed to resolve ENS name "${ensName}":`, error)
+    return null
+  }
+}
+
+export async function resolveAddressToEnsName(
+  address: Address
+): Promise<string | null> {
+  try {
+    const publicClient = getPublicClient(config)
+
+    const ensName = await publicClient.getEnsName({
+      address: address,
+    })
+
+    return ensName
+  } catch (error) {
+    console.warn(`Failed to resolve ENS for address "${address}":`, error)
     return null
   }
 }

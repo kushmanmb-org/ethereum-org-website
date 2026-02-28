@@ -972,6 +972,79 @@ curl -X POST --data '{"id": 1,"jsonrpc": "2.0","method": "eth_signTransaction","
 }
 ```
 
+### eth_signTypedData_v4 {#eth_signtypeddata_v4}
+
+Signs typed structured data as defined in [EIP-712](https://eips.ethereum.org/EIPS/eip-712). This method provides a more secure way to sign data by presenting human-readable structured information to users, making it clear what they are signing. It's commonly used for permit approvals, meta-transactions, and other advanced dapp interactions.
+
+By using typed data, the method prevents phishing attacks where users might unknowingly sign malicious transactions. The structured format includes domain separation to prevent replay attacks across different contracts or chains.
+
+Note: the address to sign with must be unlocked. This is the v4 implementation of EIP-712, which is the current standard. Earlier versions (eth_signTypedData and eth_signTypedData_v3) are deprecated.
+
+**Parameters**
+
+1. `DATA`, 20 Bytes - address of the signer
+2. `Object` - Typed structured data to be signed, conforming to EIP-712 specification
+
+```js
+params: [
+  "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826",
+  {
+    "types": {
+      "EIP712Domain": [
+        { "name": "name", "type": "string" },
+        { "name": "version", "type": "string" },
+        { "name": "chainId", "type": "uint256" },
+        { "name": "verifyingContract", "type": "address" }
+      ],
+      "Person": [
+        { "name": "name", "type": "string" },
+        { "name": "wallet", "type": "address" }
+      ],
+      "Mail": [
+        { "name": "from", "type": "Person" },
+        { "name": "to", "type": "Person" },
+        { "name": "contents", "type": "string" }
+      ]
+    },
+    "primaryType": "Mail",
+    "domain": {
+      "name": "Ether Mail",
+      "version": "1",
+      "chainId": 1,
+      "verifyingContract": "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
+    },
+    "message": {
+      "from": {
+        "name": "Cow",
+        "wallet": "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826"
+      },
+      "to": {
+        "name": "Bob",
+        "wallet": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB"
+      },
+      "contents": "Hello, Bob!"
+    }
+  }
+]
+```
+
+**Returns**
+
+`DATA`: Signature - 65 bytes signature as a hex string (0x-prefixed). The signature is composed of r, s, and v values.
+
+**Example**
+
+```js
+// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_signTypedData_v4","params":["0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826", "{\"types\":{\"EIP712Domain\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"version\",\"type\":\"string\"},{\"name\":\"chainId\",\"type\":\"uint256\"},{\"name\":\"verifyingContract\",\"type\":\"address\"}],\"Person\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"wallet\",\"type\":\"address\"}],\"Mail\":[{\"name\":\"from\",\"type\":\"Person\"},{\"name\":\"to\",\"type\":\"Person\"},{\"name\":\"contents\",\"type\":\"string\"}]},\"primaryType\":\"Mail\",\"domain\":{\"name\":\"Ether Mail\",\"version\":\"1\",\"chainId\":1,\"verifyingContract\":\"0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC\"},\"message\":{\"from\":{\"name\":\"Cow\",\"wallet\":\"0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826\"},\"to\":{\"name\":\"Bob\",\"wallet\":\"0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB\"},\"contents\":\"Hello, Bob!\"}}"],"id":1}'
+// Result
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": "0x4355c47d63924e8a72e509b65029052eb6c299d53a04e167c5775fd466751c9d07299936d304c153f6443dfa05f40ff007d72911b6f72307f996231605b915621c"
+}
+```
+
 ### eth_sendTransaction {#eth_sendtransaction}
 
 Creates new message call transaction or a contract creation, if the data field contains code, and signs it using the account specified in `from`.

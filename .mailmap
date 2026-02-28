@@ -1,0 +1,8 @@
+# Git mailmap file for consolidating author identities
+# Formats used here (see `git help mailmap` for full details):
+#   Proper Name <proper@email.com> <commit@email.com>
+#   Proper Name <proper@email.com> Other Name <commit@email.com>
+
+# Consolidate GitHub noreply address and alternate emails with canonical identity
+Matthew Brace <mattbrace22@gmail.com> <193178375+Kushmanmb@users.noreply.github.com>
+Matthew Brace <mattbrace22@gmail.com> <mattbrace92@gmail.com>

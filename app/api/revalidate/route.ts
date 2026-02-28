@@ -3,11 +3,69 @@ import { NextRequest, NextResponse } from "next/server"
 
 import i18nConfig from "../../../i18n.config.json"
 
+// Simple rate limiting - track requests by IP
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
+const RATE_LIMIT_WINDOW_MS = 60000 // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 10
+
+function getRateLimitKey(req: NextRequest): string {
+  // Use forwarded IP if available (for proxied requests), otherwise use direct IP
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0] ||
+    req.headers.get("x-real-ip") ||
+    "unknown"
+  )
+}
+
+function checkRateLimit(key: string): boolean {
+  const now = Date.now()
+  const userLimit = rateLimitMap.get(key)
+
+  if (!userLimit || now > userLimit.resetTime) {
+    // Reset or create new limit
+    rateLimitMap.set(key, {
+      count: 1,
+      resetTime: now + RATE_LIMIT_WINDOW_MS,
+    })
+    return true
+  }
+
+  if (userLimit.count >= MAX_REQUESTS_PER_WINDOW) {
+    return false
+  }
+
+  userLimit.count++
+  return true
+}
+
 export async function GET(req: NextRequest) {
+  const rateLimitKey = getRateLimitKey(req)
+
+  // Check rate limit
+  if (!checkRateLimit(rateLimitKey)) {
+    console.warn(`Rate limit exceeded for IP: ${rateLimitKey}`)
+    return NextResponse.json(
+      { message: "Too many requests. Please try again later." },
+      { status: 429 }
+    )
+  }
+
   const searchParams = req.nextUrl.searchParams
   const secret = searchParams.get("secret")
 
+  // Validate secret (timing-safe comparison would be better in production)
+  if (!process.env.REVALIDATE_SECRET) {
+    console.error("REVALIDATE_SECRET environment variable is not set")
+    return NextResponse.json(
+      { message: "Service misconfigured" },
+      { status: 500 }
+    )
+  }
+
   if (secret !== process.env.REVALIDATE_SECRET) {
+    console.warn(
+      `Invalid revalidation secret attempt from IP: ${rateLimitKey}`
+    )
     return NextResponse.json({ message: "Invalid secret" }, { status: 401 })
   }
 

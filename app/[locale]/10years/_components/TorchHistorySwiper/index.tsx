@@ -59,6 +59,7 @@ const TorchHistorySwiper = ({
         name: `Torchbearer ${index + 1}`,
         role: `Coming July ${getOrdinalSuffix(20 + index)}!`,
         twitter: "",
+        ens: undefined,
         event: {
           from: "0x0000000000000000000000000000000000000000" as Address,
           to: `placeholder-${index}` as Address,
@@ -124,6 +125,7 @@ const TorchHistorySwiper = ({
                   !card.isPlaceholder && card.address === currentHolderAddress
                 }
                 isPlaceholder={card.isPlaceholder}
+                ens={card.isPlaceholder ? undefined : card.ens}
               />
             </SwiperSlide>
           )

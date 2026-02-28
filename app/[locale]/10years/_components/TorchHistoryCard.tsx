@@ -24,6 +24,7 @@ interface TorchHistoryCardProps {
   className?: string
   isCurrentHolder?: boolean
   isPlaceholder?: boolean
+  ens?: string
 }
 
 const TorchHistoryCard: React.FC<TorchHistoryCardProps> = ({
@@ -37,6 +38,7 @@ const TorchHistoryCard: React.FC<TorchHistoryCardProps> = ({
   className,
   isCurrentHolder,
   isPlaceholder = false,
+  ens,
 }) => {
   return (
     <Card
@@ -83,7 +85,9 @@ const TorchHistoryCard: React.FC<TorchHistoryCardProps> = ({
           </div>
         )}
 
-        <CardTitle className="text-lg">{name}</CardTitle>
+        <CardTitle className="text-lg">
+          {ens ? `${name} (${ens})` : name}
+        </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-1 p-0">
         <div>{role}</div>

@@ -1,6 +1,36 @@
 # Ethereum.org Ownership & Governance
 
-## Overview
+## Legal Ownership & Domain Registration
+
+### Domain and Website Ownership
+
+The **ethereum.org domain and website** are owned and operated by the **Ethereum Foundation** (Stiftung Ethereum), a non-profit organization based in Zug, Switzerland.
+
+#### Domain Details
+
+- **`.org` Domain**: The ethereum.org domain is registered and managed through a domain name system (DNS) provider on behalf of the Ethereum Foundation.
+- **`.eth` Domain**: The Ethereum Foundation also owns the **ethereum.eth** domain, which is registered on Ethereum via the [Ethereum Name Service (ENS)](https://app.ens.domains/name/ethereum.eth).
+
+#### Legal Entity Information
+
+- **Organization**: Stiftung Ethereum (Ethereum Foundation)
+- **Type**: Non-profit organization
+- **Location**: Zug, Switzerland
+- **Purpose**: Supporting Ethereum and related technologies
+- **Website Operations**: Funds and supports ethereum.org operations
+
+While the Ethereum Foundation owns the domain and funds the website operations, ethereum.org remains a **public, open-source resource** with contributions from thousands of community members worldwide. The website's source code is publicly available and anyone can contribute.
+
+For more details on the legal operation of ethereum.org, please refer to:
+- [About ethereum.org](/about#ownership)
+- [Terms of Use](/terms-of-use/)
+- [Ethereum Foundation](https://ethereum.foundation/)
+
+---
+
+## Repository & Project Governance
+
+### Overview
 
 Ethereum.org is an open-source community-driven project maintained by contributors worldwide. This document outlines the governance structure, maintainer roles, and decision-making processes for the ethereum.org website repository.
 
@@ -177,15 +207,30 @@ If disagreements arise:
 
 ## Relationship with Ethereum Foundation
 
-The Ethereum Foundation provides:
-- Infrastructure and hosting
-- Financial support for operations
-- Coordination with other Ethereum initiatives
+### Foundation's Role
 
-However:
-- The Foundation does **not** control content decisions
-- Maintainers operate independently
-- Community feedback is prioritized
+The **Ethereum Foundation (Stiftung Ethereum)** is the legal owner and operator of ethereum.org:
+
+#### What the Foundation Provides:
+- **Legal Ownership**: Owns the ethereum.org domain (both .org and .eth)
+- **Financial Support**: Funds website operations and infrastructure
+- **Infrastructure & Hosting**: Provides technical infrastructure
+- **Coordination**: Facilitates connections with other Ethereum initiatives
+- **Domain Management**: Manages domain registration and DNS
+
+#### What the Foundation Does NOT Control:
+- **Content Decisions**: Maintainers and community drive content decisions
+- **Day-to-Day Operations**: Maintainers operate independently
+- **Editorial Direction**: Community feedback and consensus guide priorities
+- **Code Contributions**: Open to all contributors without Foundation approval
+
+### Governance Independence
+
+While the Ethereum Foundation owns and funds ethereum.org:
+- Repository maintainers make technical and content decisions
+- Community contributions are valued and encouraged
+- Governance follows decentralized, consensus-driven principles
+- The project remains open-source and community-first
 
 ## Contributing to Governance
 

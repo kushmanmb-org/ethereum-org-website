@@ -6,7 +6,29 @@ import { sanitizeInput } from "@/lib/utils/sanitize"
 const ENTERPRISE_EMAIL = "enterprise@ethereum.org"
 const SES_FROM_EMAIL = "enterprise-contact@ethereum.org"
 
-// Configure SES client
+// Validate environment variables on module load
+const validateSESConfig = () => {
+  if (!process.env.SES_ACCESS_KEY_ID) {
+    throw new Error("SES_ACCESS_KEY_ID environment variable is not set")
+  }
+  if (!process.env.SES_SECRET_ACCESS_KEY) {
+    throw new Error("SES_SECRET_ACCESS_KEY environment variable is not set")
+  }
+  if (!process.env.SES_REGION) {
+    console.warn("SES_REGION not set, defaulting to us-east-2")
+  }
+  // Validate AWS Access Key format
+  if (!/^AKIA[0-9A-Z]{16}$/.test(process.env.SES_ACCESS_KEY_ID)) {
+    throw new Error(
+      "SES_ACCESS_KEY_ID has invalid format. AWS access keys should start with 'AKIA' followed by 16 alphanumeric characters."
+    )
+  }
+}
+
+// Validate on module load (throws error if misconfigured)
+validateSESConfig()
+
+// Configure SES client with validated credentials
 const sesClient = new SESClient({
   region: process.env.SES_REGION || "us-east-2",
   credentials: {
@@ -109,7 +131,14 @@ export async function POST(request: NextRequest) {
     try {
       await sendEmail(sanitizedEmail, sanitizedMessage)
     } catch (emailError) {
-      console.error("AWS SES email sending failed:", emailError)
+      // Log detailed error server-side only
+      console.error("AWS SES email sending failed:", {
+        error: emailError instanceof Error ? emailError.message : "Unknown error",
+        // Never log the actual credentials or email content
+        timestamp: new Date().toISOString(),
+      })
+      
+      // Return generic error to client (don't expose internal details)
       return NextResponse.json(
         { error: "Failed to send message. Please try again later." },
         { status: 500 }
@@ -121,7 +150,13 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     )
   } catch (error) {
-    console.error("Enterprise contact form error:", error)
+    // Log error details server-side only (never expose to client)
+    console.error("Enterprise contact form error:", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      timestamp: new Date().toISOString(),
+      // Don't log request body as it may contain sensitive info
+    })
+    
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

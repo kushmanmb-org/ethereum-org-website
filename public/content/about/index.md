@@ -121,6 +121,16 @@ Make sure you read [our principles](/contributing/design-principles/) and [our s
 
 We welcome feedback on our design principles, design system and the style guide. Remember, ethereum.org is for the community, by the community.
 
+## Ownership {#ownership}
+
+The ethereum.org domain and website are owned and operated by the [Ethereum Foundation](/foundation/) (Stiftung Ethereum), a non-profit organization based in Zug, Switzerland.
+
+The ethereum.org `.org` domain is registered and managed through a domain name system (DNS) provider on behalf of the Ethereum Foundation. Additionally, the Ethereum Foundation owns the **ethereum.eth** domain, which is registered on Ethereum via the [Ethereum Name Service (ENS)](https://app.ens.domains/name/ethereum.eth).
+
+While the Ethereum Foundation owns the domain and funds the website operations, ethereum.org remains a public, open-source resource with contributions from thousands of community members worldwide. The website's [source code](https://github.com/ethereum/ethereum-org-website) is publicly available and anyone can contribute.
+
+For more details on the legal operation of ethereum.org, please refer to our [terms of use](/terms-of-use/).
+
 ## License {#license}
 
 The ethereum.org website is open source and built under an [MIT License](https://github.com/ethereum/ethereum-org-website/blob/dev/LICENSE) unless otherwise specified. More on [terms of use](/terms-of-use/) of ethereum.org.

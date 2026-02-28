@@ -2,7 +2,7 @@
 title: Calling a smart contract from JavaScript
 description: How to call a smart contract function from JavaScript using a Dai token example
 author: jdourlens
-tags: ["transactions", "frontend", "JavaScript", "web3.js"]
+tags: ["transactions", "frontend", "JavaScript", "web3.js", "ethers.js"]
 skill: beginner
 lang: en
 published: 2020-04-19
@@ -129,3 +129,82 @@ daiToken.methods
 The call function returns the hash of the transaction that will be mined into the blockchain. On Ethereum, transaction hashes are predictable - that’s how we can get the hash of the transaction before it is executed ([learn how hashes are calculated here](https://ethereum.stackexchange.com/questions/45648/how-to-calculate-the-assigned-txhash-of-a-transaction)).
 
 As the function only submits the transaction to the blockchain, we can’t see the result until we know when it is mined and included in the blockchain. In the next tutorial we’ll learn [how to wait for a transaction to be executed on the blockchain by knowing its hash](https://ethereumdev.io/waiting-for-a-transaction-to-be-mined-on-ethereum-with-js/).
+
+## Using ethers.js as an alternative {#using-ethers-js-as-an-alternative}
+
+The examples above use Web3.js, but [ethers.js](/developers/docs/apis/javascript/#available-libraries) is a popular alternative that provides a cleaner API and better TypeScript support. Here's how to perform the same operations using ethers.js.
+
+### Setup with ethers.js {#setup-with-ethers-js}
+
+First, install ethers.js:
+
+```bash
+npm install --save ethers
+```
+
+To interact with a smart contract using ethers.js, you'll need:
+
+1. **Provider** - a connection to the Ethereum network
+2. **Signer** - an account that can sign transactions
+3. **Contract** - a contract instance with address, ABI, and signer
+
+```js
+const { ethers } = require("ethers")
+
+// Connect to the network
+const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545")
+
+// Create a signer (for transactions that modify state)
+// WARNING: Never hardcode private keys in production!
+// Use environment variables or secure key management systems instead
+const privateKey = process.env.PRIVATE_KEY
+const signer = new ethers.Wallet(privateKey, provider)
+
+// Create contract instance
+const daiToken = new ethers.Contract(DAI_ADDRESS, ERC20TransferABI, signer)
+```
+
+### Reading from a contract with ethers.js {#reading-from-contract-ethers}
+
+Reading data from a smart contract with ethers.js is straightforward. You can directly call view/pure functions:
+
+```js
+// Read balance
+const balance = await daiToken.balanceOf(senderAddress)
+console.log("The balance is: ", balance.toString())
+```
+
+### Writing to a contract with ethers.js {#writing-to-contract-ethers}
+
+When you call a function that modifies the blockchain state, ethers.js returns a transaction response. You can use the `.wait()` method to wait for the transaction to be mined:
+
+```js
+// Send tokens
+const tx = await daiToken.transfer(receiverAddress, "100000000000000000000")
+console.log("Transaction hash:", tx.hash)
+
+// Wait for the transaction to be mined
+const receipt = await tx.wait()
+console.log("Transaction was mined in block:", receipt.blockNumber)
+```
+
+The `.wait()` method is crucial - it ensures your code waits for the transaction to be mined before continuing. This is particularly important when you need to verify the result of a transaction or perform subsequent actions.
+
+### Example: Custom contract methods {#custom-contract-methods-ethers}
+
+You can call any contract method the same way. For example, if you have a contract with a custom `updateProfile` function:
+
+```js
+// Assuming you have a contract with an updateProfile method
+const contract = new ethers.Contract(address, abi, signer)
+
+// Call the method with parameters
+const tx = await contract.updateProfile("kushmanmb.eth", "Matthew Brace")
+
+// Wait for the transaction to be mined
+await tx.wait()
+
+console.log("Profile updated successfully!")
+```
+
+This pattern works for any contract method that modifies state - just call the method on the contract instance, then use `.wait()` to ensure the transaction is confirmed on the blockchain.

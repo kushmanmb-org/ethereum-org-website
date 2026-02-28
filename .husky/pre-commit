@@ -1,1 +1,7 @@
+#!/bin/sh
+
+# Run secret detection
+./scripts/check-secrets.sh
+
+# Run lint-staged
 npx lint-staged
