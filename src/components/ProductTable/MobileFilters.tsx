@@ -131,4 +131,4 @@ const MobileFilters = ({
   )
 }
 
-export default MobileFilters
+export default React.memo(MobileFilters)
