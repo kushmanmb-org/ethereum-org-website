@@ -22,9 +22,14 @@ contract SimpleWallet {
         emit LogDeposit(msg.value, msg.sender);
     }
 
+    // Restricts a function so it can only be called by the contract owner.
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner of this wallet can call this function.");
+        _;
+    }
+
     // Send ETH from the SimpleWallet contract to a chosen recipient
-    function withdraw(uint amount, address payable recipient) public {
-        require(msg.sender == owner, "Only the owner of this wallet can withdraw.");
+    function withdraw(uint amount, address payable recipient) public onlyOwner {
         require(address(this).balance >= amount, "Not enough funds.");
         emit LogWithdrawal(amount, recipient);
         recipient.transfer(amount);
