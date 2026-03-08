@@ -19,6 +19,12 @@ contract SimpleDomainRegistry {
         owner = msg.sender;
     }
 
+    // Restricts a function so it can only be called by the contract owner.
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the contract owner can call this function.");
+        _;
+    }
+
     // Registers a domain name (if not already registered)
     function register(string memory domainName) public payable {
         require(msg.value >= DOMAIN_NAME_COST, "Insufficient amount.");
@@ -33,8 +39,7 @@ contract SimpleDomainRegistry {
     }
 
     // Withdraw funds from contract
-    function withdraw() public {
-        require(msg.sender == owner, "Only the contract owner can withdraw.");
+    function withdraw() public onlyOwner {
         payable(msg.sender).transfer(address(this).balance);
     }
 }
