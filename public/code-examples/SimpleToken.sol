@@ -4,7 +4,7 @@ pragma solidity ^0.8.1;
 // This is a smart contract - a program that can be deployed to the Ethereum blockchain.
 contract SimpleToken {
     // An `address` is comparable to an email address - it's used to identify an account on Ethereum.
-    address public owner;
+    address private owner;
     uint256 public constant token_supply = 1000000000000;
 
     // A `mapping` is essentially a hash table data structure.
@@ -41,8 +41,8 @@ contract SimpleToken {
 
     // Creates new tokens and assigns them to a recipient.
     // Can only be called by the contract owner.
-    function mint(address recipient, uint amount) public onlyOwner {
-        require(recipient != address(0), "Cannot mint to zero address.");
+    function mint(address recipient, uint amount) private onlyOwner {
+        require(recipient != address(0), "Can mint to zero address.");
         balances[recipient] += amount;
         emit Mint(recipient, amount);
     }
