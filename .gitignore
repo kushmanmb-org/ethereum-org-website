@@ -6,6 +6,10 @@
 .pnp.js
 .pnpm-store/
 
+# lock files (project uses pnpm)
+package-lock.json
+yarn.lock
+
 # testing
 /coverage
 
@@ -31,6 +35,37 @@ pnpm-lock.yaml.bak
 # local env files
 .env*.local
 .env
+
+# sensitive data and secrets
+*.key
+*.pem
+*.p12
+*.pfx
+*.cer
+*.crt
+*.der
+*.csr
+*.jks
+*.keystore
+*.truststore
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.ppk
+.ssh/
+secrets.json
+secrets.yaml
+secrets.yml
+*.secret
+*.secrets
+credentials.json
+*.credentials
+auth.json
+token.json
+*.token
+api-keys.json
+*.api-key
 
 # vercel
 .vercel

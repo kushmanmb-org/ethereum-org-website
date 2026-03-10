@@ -1,4 +1,4 @@
-name: Labeler
+name: kushmanmb
 
 on:
   - pull_request_target
@@ -10,12 +10,12 @@ jobs:
       issues: write
 
     steps:
-      - uses: actions/labeler@v2
+      - uses: actions/labeler@v5
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Refine labels
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
