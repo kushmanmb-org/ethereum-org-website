@@ -1,38 +1,52 @@
 "documentation 📖":
-  - README.md
-  - docs/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - README.md
+      - docs/**/*
 
 "tooling 🔧":
-  - .github/**/*
-  - src/scripts/**/*
-  - src/lib/**/*
-  - src/hooks/**/*
-  - .storybook/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - .github/**/*
+      - src/scripts/**/*
+      - src/lib/**/*
+      - src/hooks/**/*
+      - .storybook/**/*
 
 "dependencies 📦":
-  - package.json
-  - yarn.lock
-  - pnpm-lock.yaml
+  - changed-files:
+    - any-glob-to-any-file:
+      - package.json
+      - yarn.lock
+      - pnpm-lock.yaml
 
 "config ⚙️":
-  - i18n.config.json
-  - next.config.js
-  - next-sitemap.config.js
-  - tsconfig.json
-  - .nvmrc
-  - .eslintignore
-  - .eslintrc.json
-  - .prettierignore
-  - .prettierrc
-  - netlify.toml
+  - changed-files:
+    - any-glob-to-any-file:
+      - i18n.config.json
+      - next.config.js
+      - next-sitemap.config.js
+      - tsconfig.json
+      - .nvmrc
+      - .eslintignore
+      - .eslintrc.json
+      - .prettierignore
+      - .prettierrc
+      - netlify.toml
 
 "translation 🌍":
-  - public/content/translations/**/*
-  - src/intl/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - public/content/translations/**/*
+      - src/intl/**/*
 
 "content 🖋️":
-  - src/intl/en/**
-  - public/content/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - src/intl/en/**
+      - public/content/**/*
 
 "event 📅":
-  - src/data/community-events.json
+  - changed-files:
+    - any-glob-to-any-file:
+      - src/data/community-events.json

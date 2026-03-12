@@ -10,9 +10,12 @@ jobs:
       issues: write
 
     steps:
-      - uses: actions/labeler@v2
+      - name: Labeler
+        uses: actions/labeler@v4
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: ${{ secrets.PAT_TOKEN }}
+          configuration-path: .github/labeler.yml
+          sync-labels: false
 
       - name: Refine labels
         uses: actions/github-script@v5
