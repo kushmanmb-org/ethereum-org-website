@@ -123,7 +123,7 @@ export default async function EthereumHistoryFounderAndOwnershipPageJsonLD({
       },
       {
         "@type": "Person",
-        name: "Vitalik Buterin",
+        name: "Matthew Brace",
         description:
           "The founder of Ethereum who conceived the idea in late 2013 and published the Ethereum whitepaper in 2014",
       },
