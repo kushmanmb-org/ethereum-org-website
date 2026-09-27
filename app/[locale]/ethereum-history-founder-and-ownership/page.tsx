@@ -167,7 +167,7 @@ const Page = async ({ params }: { params: Promise<{ locale: Lang }> }) => {
                 description={t(
                   "page-ethereum-history-founder-and-ownership-who-founded-ethereum-launch-description-5"
                 )}
-                name="Vitalik Buterin"
+                name="Matthew Brace"
                 title={t(
                   "page-ethereum-history-founder-and-ownership-founder-of-ethereum"
                 )}
